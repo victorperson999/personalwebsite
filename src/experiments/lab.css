@@ -1,0 +1,400 @@
+/* Isolated styles for the 3D experiments lab (/#lab). Everything is scoped
+   under .lab so it can't leak into the live site, and the whole folder is
+   deletable once a hero direction is chosen. */
+
+.lab {
+  --ink: #0e1116;
+  --slate: #1a2029;
+  --ivory: #ece6d8;
+  --brass: #c9a227;
+  --oxide: #3e6f63;
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --display: "Space Grotesk", system-ui, -apple-system, "Segoe UI", Roboto,
+    sans-serif;
+
+  min-height: 100%;
+  margin: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(62, 111, 99, 0.18), transparent 60%),
+    var(--ink);
+  color: var(--ivory);
+  font-family: var(--display);
+}
+
+/* ---- Header ---- */
+.lab__head {
+  max-width: 60rem;
+  margin: 0 auto 2.5rem;
+}
+.lab__eyebrow {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.lab__title {
+  margin: 0.4rem 0 0;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.lab__note {
+  margin: 0.6rem 0 0;
+  color: rgba(236, 230, 216, 0.62);
+}
+.lab__note a {
+  color: var(--brass);
+  text-decoration: none;
+}
+.lab__note a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Grid of stages ---- */
+.lab__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+.lab__stage {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(236, 230, 216, 0.08);
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(26, 32, 41, 0.7), rgba(14, 17, 22, 0.7));
+  overflow: hidden;
+}
+.lab__bar {
+  display: flex;
+  gap: 0.85rem;
+  padding: 1rem 1.15rem;
+  border-bottom: 1px solid rgba(236, 230, 216, 0.07);
+}
+.lab__coord {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--brass);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 6px;
+  padding: 0.15rem 0.4rem;
+  height: fit-content;
+}
+.lab__stageTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.lab__caption {
+  margin: 0.2rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(236, 230, 216, 0.55);
+}
+.lab__canvas {
+  position: relative;
+  flex: 1;
+  min-height: 340px;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  perspective: 1000px;
+}
+
+/* ============================================================
+   #1 — Tilt name plate
+   ============================================================ */
+.tilt {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+.tilt__plate {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  width: min(300px, 82%);
+  aspect-ratio: 4 / 5;
+  padding: 1.5rem;
+  border-radius: 18px;
+  border: 1px solid rgba(236, 230, 216, 0.1);
+  background: linear-gradient(155deg, var(--slate), #0d1219);
+  box-shadow: 0 30px 60px -32px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transform-style: preserve-3d;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 160ms ease-out;
+}
+.tilt__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(201, 162, 39, 0.28),
+    transparent 45%
+  );
+}
+.tilt__coord {
+  position: absolute;
+  top: 1.1rem;
+  left: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--brass);
+  transform: translateZ(40px);
+}
+.tilt__name {
+  margin: 0;
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
+  transform: translateZ(65px);
+}
+.tilt__role {
+  margin: 0.5rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: rgba(236, 230, 216, 0.6);
+  transform: translateZ(35px);
+}
+
+/* ============================================================
+   #2 — Parallax field
+   ============================================================ */
+.parallax {
+  --px: 0px;
+  --py: 0px;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.parallax__piece {
+  position: absolute;
+  color: rgba(236, 230, 216, 0.16);
+  transform: translate3d(
+    calc(var(--px) * var(--depth)),
+    calc(var(--py) * var(--depth)),
+    0
+  );
+  transition: transform 220ms ease-out;
+  user-select: none;
+}
+.parallax__name {
+  position: relative;
+  text-align: center;
+  transform: translate3d(
+    calc(var(--px) * var(--depth)),
+    calc(var(--py) * var(--depth)),
+    0
+  );
+  transition: transform 220ms ease-out;
+}
+.parallax__name h2 {
+  margin: 0.3rem 0 0;
+  font-size: clamp(1.7rem, 6vw, 2.4rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.parallax__coord {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  color: var(--brass);
+}
+
+/* ============================================================
+   #3 — Ambient rotating cube
+   ============================================================ */
+.cube {
+  perspective: 800px;
+}
+.cube__box {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  transform-style: preserve-3d;
+  transform: rotateX(-18deg);
+  animation: cube-spin 20s linear infinite;
+}
+.cube:hover .cube__box,
+.cube:focus-within .cube__box {
+  animation-play-state: paused;
+}
+.cube__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  border: 1px solid rgba(201, 162, 39, 0.35);
+  background: rgba(26, 32, 41, 0.82);
+  backface-visibility: hidden;
+}
+.cube__face--front {
+  transform: translateZ(80px);
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(80px);
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(80px);
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(80px);
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(80px);
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(80px);
+}
+.cube__face strong {
+  font-size: 2.4rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.cube__face--name,
+.cube__face--role {
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.cube__face--role {
+  font-weight: 400;
+  color: rgba(236, 230, 216, 0.7);
+}
+.cube__face--glyph {
+  font-size: 3.4rem;
+  color: var(--brass);
+}
+.cube__coord {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--brass);
+}
+
+@keyframes cube-spin {
+  from {
+    transform: rotateX(-18deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-18deg) rotateY(360deg);
+  }
+}
+
+/* ============================================================
+   #4 — Flip reveal
+   ============================================================ */
+.flip {
+  width: min(280px, 82%);
+  aspect-ratio: 5 / 4;
+  perspective: 1000px;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.flip:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
+}
+.flip__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.flip__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+.flip__face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 1px solid rgba(236, 230, 216, 0.1);
+  backface-visibility: hidden;
+}
+.flip__front {
+  background: linear-gradient(155deg, var(--slate), #0d1219);
+}
+.flip__front h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.flip__front p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: rgba(236, 230, 216, 0.6);
+}
+.flip__coord {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--brass);
+}
+.flip__hint {
+  margin-top: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(236, 230, 216, 0.35);
+}
+.flip__back {
+  transform: rotateY(180deg);
+  background: linear-gradient(155deg, var(--oxide), #14201d);
+}
+.flip__back a {
+  color: var(--ivory);
+  text-decoration: none;
+  font-size: 1rem;
+  padding: 0.35rem 0.2rem;
+  border-bottom: 1px solid transparent;
+}
+.flip__back a:hover,
+.flip__back a:focus-visible {
+  border-bottom-color: var(--brass);
+  color: var(--brass);
+}
+
+/* ============================================================
+   Reduced motion — calm everything to a composed static state
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .tilt__plate,
+  .parallax__piece,
+  .parallax__name {
+    transition: none;
+  }
+  .cube__box {
+    animation: none;
+    transform: rotateX(-18deg) rotateY(-32deg);
+  }
+  .flip__inner {
+    transition-duration: 0.001ms;
+  }
+}
