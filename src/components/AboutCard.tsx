@@ -44,7 +44,7 @@ export default function AboutCard() {
         <div className="aboutcard__foil" aria-hidden="true" />
         <div className="aboutcard__shine" aria-hidden="true" />
         <div className="aboutcard__content">
-          <span className="aboutcard__coord">a8</span>
+          <span className="aboutcard__coord">a8+</span>
           <img className="aboutcard__portrait" src={portrait} alt="Victor Jiang" />
           <span className="aboutcard__name">Victor Jiang</span>
           <span className="aboutcard__title">Software Engineer</span>

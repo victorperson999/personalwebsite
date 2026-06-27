@@ -1,0 +1,235 @@
+.exp {
+  min-height: 100vh;
+  padding: clamp(2rem, 6vw, 4rem) 0 25vh;
+  background:
+    radial-gradient(120% 60% at 50% -10%, rgba(62, 111, 99, 0.14), transparent 55%),
+    var(--ink);
+}
+
+/* ---- Header ---- */
+.exp__head {
+  max-width: 48rem;
+  margin: 0 auto clamp(2rem, 7vh, 5rem);
+  padding: 0 clamp(1rem, 4vw, 3rem);
+  text-align: center;
+}
+.exp__back {
+  display: inline-block;
+  margin-bottom: clamp(1.5rem, 5vh, 3rem);
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  text-decoration: none;
+}
+.exp__back:hover,
+.exp__back:focus-visible {
+  color: var(--brass);
+}
+.exp__coord {
+  display: block;
+  margin-bottom: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.exp__title {
+  margin: 0;
+  font-size: clamp(2.5rem, 9vw, 5rem);
+  font-weight: 600;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.exp__intro {
+  margin: 1rem auto 0;
+  max-width: 34rem;
+  font-family: var(--mono);
+  font-size: clamp(0.85rem, 2.4vw, 1rem);
+  color: var(--muted);
+}
+
+/* ---- Stage: sticky board + scrolling full cards ---- */
+.exp__stage {
+  display: grid;
+  grid-template-columns: minmax(300px, 420px) 1fr;
+  gap: clamp(2.5rem, 8vw, 7rem);
+  align-items: start;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+.exp__board-col {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Board (wrapped in a grid so the a–h / 1–8 labels line up) ---- */
+.exp__board-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  gap: 0.3rem 0.4rem;
+  width: min(100%, 420px);
+}
+.exp__ranks,
+.exp__files {
+  font-family: var(--mono);
+  font-size: clamp(0.6rem, 1.4vw, 0.72rem);
+  color: rgba(236, 230, 216, 0.45);
+}
+.exp__ranks {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  grid-template-rows: repeat(8, 1fr);
+}
+.exp__ranks span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.exp__files {
+  grid-column: 2;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  text-align: center;
+}
+.exp__board {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid rgba(201, 162, 39, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.exp__grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+}
+.exp__sq {
+  background: transparent;
+}
+.exp__sq.is-light {
+  background: rgba(236, 230, 216, 0.05);
+}
+.exp__marker {
+  position: absolute;
+  width: 9%;
+  height: 9%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: border-color 320ms ease, box-shadow 320ms ease;
+}
+.exp__marker.is-active {
+  border-color: var(--brass);
+  box-shadow: 0 0 9px rgba(201, 162, 39, 0.45);
+}
+.exp__knight {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-size: clamp(1.3rem, 4.5vw, 2rem);
+  line-height: 1;
+  color: var(--brass);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+  pointer-events: none;
+  z-index: 2;
+  transition:
+    left 600ms cubic-bezier(0.34, 1.35, 0.5, 1),
+    top 600ms cubic-bezier(0.34, 1.35, 0.5, 1);
+}
+
+/* ---- Entries: full cards, generous spacing so the previous ones stay
+   readable while the centred one is highlighted ---- */
+.exp__entries {
+  list-style: none;
+  margin: 0;
+  padding: 22vh 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 7vh, 4rem);
+}
+.exp__card {
+  padding: clamp(1.5rem, 3.5vw, 2.25rem);
+  border: 1px solid rgba(236, 230, 216, 0.1);
+  border-left: 2px solid rgba(201, 162, 39, 0.3);
+  border-radius: 14px;
+  background: linear-gradient(155deg, rgba(27, 34, 48, 0.85), rgba(13, 18, 25, 0.85));
+  transition:
+    border-color 360ms ease,
+    transform 360ms cubic-bezier(0.34, 1.2, 0.5, 1),
+    box-shadow 360ms ease;
+}
+.exp__entry[data-active='true'] .exp__card {
+  border-left-color: var(--brass);
+  transform: translateY(-3px);
+  box-shadow: 0 22px 46px -26px rgba(0, 0, 0, 0.85);
+}
+.exp__card-square {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: var(--brass);
+}
+.exp__card-role {
+  margin: 0.4rem 0 0;
+  font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.exp__card-org {
+  margin: 0.3rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.exp__card-blurb {
+  margin: 0.9rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(236, 230, 216, 0.78);
+}
+
+/* ---- Mobile: board pinned at the top, cards scroll beneath ---- */
+@media (max-width: 760px) {
+  .exp__stage {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .exp__board-col {
+    height: auto;
+    top: 0;
+    padding: 0.75rem 0 1rem;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(236, 230, 216, 0.08);
+    z-index: 3;
+  }
+  .exp__board-wrap {
+    width: min(58vw, 230px);
+  }
+  .exp__entries {
+    padding: 8vh 0 18vh;
+    gap: clamp(1.25rem, 6vh, 3rem);
+  }
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  .exp__knight,
+  .exp__marker,
+  .exp__card {
+    transition: none;
+  }
+}

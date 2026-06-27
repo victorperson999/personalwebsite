@@ -1,0 +1,31 @@
+.logo {
+  display: inline-flex;
+  line-height: 0;
+  border-radius: 6px;
+  transition: opacity 200ms ease;
+}
+.logo:hover {
+  opacity: 0.7;
+}
+.logo:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
+}
+.logo__img {
+  display: block;
+  width: 40px;
+  height: 40px;
+}
+
+/* Home — centred under the slider. */
+.hero__logo {
+  margin-top: 1.6rem;
+}
+
+/* Inner pages — pinned to the top-left corner. */
+.page-logo {
+  position: fixed;
+  top: clamp(1rem, 3vw, 1.75rem);
+  left: clamp(1rem, 3vw, 1.75rem);
+  z-index: 10;
+}

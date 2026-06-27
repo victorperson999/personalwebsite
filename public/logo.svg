@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="VJ">
+  <!-- Box outline; left border cut out a bit above the V's top down to its
+       apex (y 25–71), so the V has clear room to break out. -->
+  <path d="M15 25 V11 H93 V89 H15 V71" fill="none" stroke="#ffffff" stroke-width="4"/>
+
+  <!-- Pixelated letters on a finer (4-unit) grid for cleaner edges. -->
+  <g fill="#ffffff" shape-rendering="crispEdges">
+    <!-- V — finer staircase arms, breaks out past the left border -->
+    <rect x="5"  y="31" width="8" height="8"/>
+    <rect x="41" y="31" width="8" height="8"/>
+    <rect x="9"  y="39" width="8" height="8"/>
+    <rect x="37" y="39" width="8" height="8"/>
+    <rect x="13" y="47" width="8" height="8"/>
+    <rect x="33" y="47" width="8" height="8"/>
+    <rect x="17" y="55" width="8" height="8"/>
+    <rect x="29" y="55" width="8" height="8"/>
+    <rect x="21" y="63" width="12" height="4"/>
+    <rect x="25" y="67" width="4" height="4"/>
+
+    <!-- J — stem + stepped hook, stays inside the box -->
+    <rect x="76" y="31" width="8" height="36"/>
+    <rect x="56" y="59" width="4" height="4"/>
+    <rect x="56" y="63" width="8" height="4"/>
+    <rect x="72" y="63" width="4" height="4"/>
+    <rect x="60" y="67" width="16" height="4"/>
+  </g>
+</svg>
