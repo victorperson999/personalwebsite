@@ -1,0 +1,172 @@
+/* Experience prism — a hexagonal column, top-right of the hero.
+   --s  side-panel width (= hexagon side length)
+   --h  column height
+   --a  apothem: centre→panel distance = (s/2)/tan(30°) = 0.866·s
+   Cross-section circumdiameter = 2·s (used to size the end caps). */
+.prism {
+  --s: clamp(58px, 5.4vw, 90px);
+  --h: calc(var(--s) * 1.55);
+  --a: calc(var(--s) * 0.866);
+  position: relative; /* placed by Hero's .hero__slot wrapper */
+  display: block;
+  width: calc(var(--s) * 2);
+  height: var(--h);
+  perspective: 700px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.prism:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
+}
+
+.prism__solid {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  animation: prism-spin 15s linear infinite;
+}
+/* Pause on hover, and on keyboard focus only (:focus-visible) — a mouse click
+   leaves the link focused, so :focus-within would wrongly keep it paused. */
+.prism:hover .prism__solid,
+.prism:focus-visible .prism__solid {
+  animation-play-state: paused;
+}
+
+/* ---- Side panels (5 rectangles around the vertical axis) ---- */
+.prism__panel {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--s);
+  height: var(--h);
+  margin-left: calc(var(--s) / -2);
+  /* Stack the word over its logo. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--s) * 0.07);
+  /* Brass background = edge line; ::before paints the inset oxide fill. */
+  background: rgba(201, 162, 39, 0.45);
+  /* Cull the 3 rear panels so the painter has fewer faces to sort (less
+     z-fighting at the seams). Outward-facing normals make this correct. */
+  backface-visibility: hidden;
+}
+.prism__panel::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: linear-gradient(160deg, #16241f, #0d1714);
+}
+.prism__panel--1 { transform: rotateY(0deg)   translateZ(var(--a)); }
+.prism__panel--2 { transform: rotateY(60deg)  translateZ(var(--a)); }
+.prism__panel--3 { transform: rotateY(120deg) translateZ(var(--a)); }
+.prism__panel--4 { transform: rotateY(180deg) translateZ(var(--a)); }
+.prism__panel--5 { transform: rotateY(240deg) translateZ(var(--a)); }
+.prism__panel--6 { transform: rotateY(300deg) translateZ(var(--a)); }
+
+.prism__label {
+  position: relative;
+  z-index: 1; /* above the ::before fill */
+  max-width: 94%;
+  font-family: var(--mono);
+  font-size: calc(var(--s) * 0.135);
+  line-height: 1.1;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: rgba(236, 230, 216, 0.72);
+}
+.prism__label.is-primary {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: calc(var(--s) * 0.155);
+  letter-spacing: -0.01em;
+  color: var(--brass);
+}
+
+/* Tech logo stacked under each skill word (monochrome, inherits the row's
+   muted-ivory colour via currentColor). "Experience" has none — that's the cue. */
+.prism__logo {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: calc(var(--s) * 0.34);
+  height: calc(var(--s) * 0.34);
+  color: rgba(236, 230, 216, 0.82);
+}
+/* Underline the "Experience" word on hover/keyboard focus, as a link cue. */
+.prism:hover .prism__label.is-primary,
+.prism:focus-visible .prism__label.is-primary {
+  text-decoration: underline;
+  text-decoration-color: var(--brass);
+  text-underline-offset: 0.18em;
+}
+
+/* ---- End caps (top + bottom pentagons) ---- */
+.prism__cap {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--s) * 2);
+  height: calc(var(--s) * 2);
+  margin-left: calc(var(--s) * -1);
+  margin-top: calc(var(--s) * -1);
+  /* Flat-top hexagon: its bottom edge faces +Z after rotateX(90deg). */
+  clip-path: polygon(
+    100% 50%,
+    75% 6.7%,
+    25% 6.7%,
+    0% 50%,
+    25% 93.3%,
+    75% 93.3%
+  );
+  /* Single solid oxide fill — no hard brass edge. The high-contrast clipped
+     edge line is what aliased/"chopped" under the 3D rotation; the clean top
+     outline now comes from the panel top edges (plain rectangles), and any
+     same-colour cap↔panel overlap can't show a visible seam. */
+  background: #14201d;
+  backface-visibility: hidden;
+}
+/* The flat-top hexagon laid flat with rotateX(90deg) presents an edge toward +Z,
+   matching panel 1's edge; the apothem (0.433·box = 0.866·s) equals --a. */
+.prism__cap--top    { transform: translateY(calc(var(--h) / -2)) rotateX(90deg); }
+/* Bottom cap faces down (rotateX(-90)) so it culls cleanly from this view. */
+.prism__cap--bottom { transform: translateY(calc(var(--h) / 2))  rotateX(-90deg); }
+
+/* Bash/terminal mark centred on the top cap (spins with the prism). Drawn as a
+   stroked outline in brass to match the side logos; well inside the hexagon so
+   the cap's clip-path doesn't touch it. */
+.prism__caplogo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: calc(var(--s) * 0.95);
+  height: calc(var(--s) * 0.95);
+  transform: translate(-50%, -50%);
+  fill: none;
+  stroke: var(--brass);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes prism-spin {
+  from { transform: rotateX(-24deg) rotateY(0deg); }
+  to   { transform: rotateX(-24deg) rotateY(360deg); }
+}
+
+/* Reduced motion: rest with an "Experience" panel toward the viewer. */
+@media (prefers-reduced-motion: reduce) {
+  .prism__solid {
+    animation: none;
+    transform: rotateX(-24deg) rotateY(-16deg);
+  }
+}
+
+/* Keep the hero uncrowded on small screens. */
+@media (max-width: 520px) {
+  .prism {
+    display: none;
+  }
+}

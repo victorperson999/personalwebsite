@@ -1,10 +1,10 @@
-import Hero from './components/Hero'
+import { usePath } from './router'
+import Home from './pages/Home'
+import ProjectsPage from './pages/ProjectsPage'
 
 export default function App() {
-  return (
-    <main className="page">
-      <Hero />
-      {/* More sections (about, work, contact) will be added below. */}
-    </main>
-  )
+  const path = usePath()
+
+  if (path === '/projects') return <ProjectsPage />
+  return <Home />
 }

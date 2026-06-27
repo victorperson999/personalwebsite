@@ -1,0 +1,123 @@
+/* About card — a holographic player card, bottom-left of the hero. Tilt (--rx,
+   --ry) and sheen position (--mx, --my) are driven from the pointer in JS. */
+.aboutcard {
+  --w: clamp(118px, 11vw, 176px);
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative; /* placed by Hero's .hero__slot wrapper */
+  display: block;
+  width: var(--w);
+  height: calc(var(--w) * 1.4);
+  perspective: 700px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.aboutcard:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
+}
+
+.aboutcard__inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: calc(var(--w) * 0.07);
+  background: linear-gradient(155deg, var(--slate), #0d1219);
+  border: 1px solid rgba(201, 162, 39, 0.4);
+  overflow: hidden;
+  transform: rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 200ms ease-out;
+  box-shadow: 0 24px 40px -28px rgba(0, 0, 0, 0.85);
+}
+
+/* Holographic foil: a diagonal colour band that shifts with the pointer. */
+.aboutcard__foil {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 25%,
+    rgba(62, 111, 99, 0.4) 42%,
+    rgba(201, 162, 39, 0.42) 52%,
+    transparent 70%
+  );
+  background-size: 220% 220%;
+  background-position: var(--mx) var(--my);
+  mix-blend-mode: screen;
+  opacity: 0.7;
+}
+/* A soft highlight that follows the cursor. */
+.aboutcard__shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx) var(--my),
+    rgba(236, 230, 216, 0.3),
+    transparent 42%
+  );
+  mix-blend-mode: screen;
+}
+
+.aboutcard__content {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--w) * 0.028);
+  padding: calc(var(--w) * 0.08);
+  text-align: center;
+}
+.aboutcard__coord {
+  position: absolute;
+  top: calc(var(--w) * 0.06);
+  left: calc(var(--w) * 0.08);
+  font-family: var(--mono);
+  font-size: calc(var(--w) * 0.08);
+  color: var(--brass);
+}
+.aboutcard__portrait {
+  width: calc(var(--w) * 0.5);
+  height: calc(var(--w) * 0.5);
+  margin-bottom: calc(var(--w) * 0.04);
+  border: 1px solid rgba(201, 162, 39, 0.6);
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+.aboutcard__name {
+  font-size: calc(var(--w) * 0.13);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.aboutcard__title {
+  font-family: var(--mono);
+  font-size: calc(var(--w) * 0.085);
+  color: rgba(236, 230, 216, 0.6);
+}
+.aboutcard__cta {
+  margin-top: calc(var(--w) * 0.05);
+  font-family: var(--mono);
+  font-size: calc(var(--w) * 0.082);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aboutcard__inner {
+    transition: none;
+  }
+}
+
+/* Keep the hero uncrowded on small screens. */
+@media (max-width: 520px) {
+  .aboutcard {
+    display: none;
+  }
+}

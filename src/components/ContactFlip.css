@@ -1,10 +1,11 @@
 .contact {
-  position: absolute;
-  right: clamp(1rem, 4vw, 2.5rem);
-  bottom: clamp(1rem, 4vw, 2.5rem);
-  z-index: 2;
-  width: 150px;
-  height: 120px;
+  /* Card width scales with the viewport: floored at 150px so laptops/phones
+     stay the current size, grows on larger monitors, capped so it never
+     dominates. Everything inside derives from --w so text scales with it. */
+  --w: clamp(184px, 13vw, 288px);
+  position: relative; /* placed by Hero's .hero__slot wrapper */
+  width: var(--w);
+  height: calc(var(--w) * 0.82);
   perspective: 800px;
   cursor: pointer;
   border-radius: 12px;
@@ -44,17 +45,17 @@
 }
 .contact__coord {
   font-family: var(--mono);
-  font-size: 0.7rem;
+  font-size: calc(var(--w) * 0.068);
   color: var(--brass);
 }
 .contact__label {
-  font-size: 1.15rem;
+  font-size: calc(var(--w) * 0.10);
   font-weight: 600;
   letter-spacing: -0.01em;
 }
 .contact__hint {
   font-family: var(--mono);
-  font-size: 0.62rem;
+  font-size: calc(var(--w) * 0.06);
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(236, 230, 216, 0.35);
@@ -63,14 +64,31 @@
 .contact__back {
   transform: rotateY(180deg);
   background: linear-gradient(155deg, var(--oxide), #14201d);
-  gap: 0.15rem;
+  align-items: stretch; /* left-align the contact rows */
+  gap: calc(var(--w) * 0.022);
+  padding: 0.85rem 0.8rem;
 }
 .contact__back a {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
   color: var(--ivory);
   text-decoration: none;
-  font-size: 0.9rem;
-  padding: 0.2rem 0.3rem;
+  font-size: calc(var(--w) * 0.058);
+  line-height: 1.25;
+  padding: 0.15rem 0.2rem;
   border-bottom: 1px solid transparent;
+}
+/* Let the long URLs wrap inside the card instead of overflowing. */
+.contact__back a > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.contact__icon {
+  flex: none;
+  width: 1.2em;
+  height: 1.2em;
+  fill: currentColor;
 }
 .contact__back a:hover,
 .contact__back a:focus-visible {
@@ -79,12 +97,10 @@
 }
 
 @media (max-width: 480px) {
+  /* Override --w so the card (and all its text) shrinks together on phones,
+     but keep it large enough that the full URLs stay readable. */
   .contact {
-    width: 124px;
-    height: 100px;
-  }
-  .contact__label {
-    font-size: 1rem;
+    --w: 160px;
   }
 }
 

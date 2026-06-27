@@ -1,0 +1,147 @@
+/* Ambient "Projects" dodecahedron — sits top-left of the hero name. Sizing is
+   driven by one custom property (--face) so it scales with the viewport like
+   the contact card. --r is the solid's inradius (centre-to-face distance):
+   for a regular dodecahedron r = circumradius_of_face * 1.30902, and the face
+   pentagon's circumradius is half the face box, so r = 0.6545 * --face. */
+.dodeca {
+  --face: clamp(96px, 10vw, 158px);
+  --r: calc(var(--face) * 0.654508);
+  position: relative; /* placed by Hero's .hero__slot wrapper */
+  width: var(--face);
+  height: var(--face);
+  perspective: 900px;
+}
+
+.dodeca__solid {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  /* Gentle tilt + vertical turntable spin. */
+  animation: dodeca-spin 16s linear infinite;
+}
+/* Pause on hover, and on keyboard focus only — a mouse click leaves the inner
+   link focused, so :focus-within would wrongly keep it paused after clicking. */
+.dodeca:hover .dodeca__solid,
+.dodeca:has(:focus-visible) .dodeca__solid {
+  animation-play-state: paused;
+}
+
+.dodeca__face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  /* Regular pentagon, vertex up (circumradius = half the face box). */
+  clip-path: polygon(
+    50% 0%,
+    97.553% 34.549%,
+    79.389% 90.451%,
+    20.611% 90.451%,
+    2.447% 34.549%
+  );
+  /* Opaque solid: the face background is the brass EDGE line; the inset ::before
+     below paints the fill on top, leaving a thin outline around every facet.
+     Backface culling stays off so depth-sorting occludes the far faces (and so
+     the inward-facing back ring is never dropped — that was the "missing faces"). */
+  background: rgba(201, 162, 39, 0.8);
+}
+
+/* Opaque fill, inset from the edge so the brass rim reads as an edge line.
+   clip-path: inherit reuses the pentagon on the (smaller) inset box. */
+.dodeca__face::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  clip-path: inherit;
+  background: #1a2029;
+}
+
+/* The two "Projects" caps get a darker fill so the link text pops. */
+.dodeca__face--1::before,
+.dodeca__face--2::before {
+  background: #11171e;
+}
+
+/* Chess-glyph faces (the 10 ring faces). */
+.dodeca__glyph {
+  position: relative;
+  z-index: 1; /* above the ::before fill */
+  font-size: calc(var(--face) * 0.34);
+  line-height: 1;
+  color: rgba(201, 162, 39, 0.78);
+}
+
+/* The two parallel "Projects" link faces (front + back). */
+.dodeca__link {
+  position: relative;
+  z-index: 1; /* above the ::before fill */
+  font-family: var(--display);
+  font-size: calc(var(--face) * 0.15);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ivory);
+  text-decoration: none;
+  padding: 0.2em 0.35em;
+  border-bottom: 1px solid transparent;
+}
+.dodeca__link:hover,
+.dodeca__link:focus-visible {
+  color: var(--brass);
+  border-bottom-color: var(--brass);
+}
+.dodeca__link:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+/* The back cap's face carries a rotateZ(36deg) for clean tiling, which leaves
+   its "Projects" label crooked when it swings to the front. Counter-rotate the
+   label 36° counter-clockwise so it reads straight and horizontal on reveal
+   (the facet itself stays tiled). */
+.dodeca__face--2 .dodeca__link {
+  transform: rotate(-36deg);
+}
+
+/* ============================================================
+   FACE TRANSFORMS — cap + front ring + back ring + cap, ported from the
+   known-good reference. Two caps on the Z axis carry "Projects"; the front
+   ring (5) tilts forward off the front cap, the back ring (5, offset 36°)
+   tilts back off the back cap. Inradius --r is exact for our pentagon.
+   Dihedral 116.565° → adjacent-face tilt 63.435°.
+   ============================================================ */
+.dodeca__face--1 { transform: translateZ(var(--r)); }                                /* front cap +Z */
+.dodeca__face--2 { transform: rotateY(180deg) translateZ(var(--r)) rotateZ(36deg); }  /* back cap −Z */
+
+/* front ring — 5 faces around the front cap */
+.dodeca__face--3 { transform: rotateZ(-36deg) rotateX(63.435deg) translateZ(var(--r)); }
+.dodeca__face--4 { transform: rotateZ(36deg)  rotateX(63.435deg) translateZ(var(--r)); }
+.dodeca__face--5 { transform: rotateZ(108deg) rotateX(63.435deg) translateZ(var(--r)); }
+.dodeca__face--6 { transform: rotateZ(180deg) rotateX(63.435deg) translateZ(var(--r)); }
+.dodeca__face--7 { transform: rotateZ(252deg) rotateX(63.435deg) translateZ(var(--r)); }
+
+/* back ring — 5 faces around the back cap (offset 36°) */
+.dodeca__face--8  { transform: rotateZ(0deg)   rotateX(-63.435deg) translateZ(calc(var(--r) * -1)); }
+.dodeca__face--9  { transform: rotateZ(72deg)  rotateX(-63.435deg) translateZ(calc(var(--r) * -1)); }
+.dodeca__face--10 { transform: rotateZ(144deg) rotateX(-63.435deg) translateZ(calc(var(--r) * -1)); }
+.dodeca__face--11 { transform: rotateZ(216deg) rotateX(-63.435deg) translateZ(calc(var(--r) * -1)); }
+.dodeca__face--12 { transform: rotateZ(288deg) rotateX(-63.435deg) translateZ(calc(var(--r) * -1)); }
+
+@keyframes dodeca-spin {
+  from { transform: rotateX(-12deg) rotateY(0deg); }
+  to   { transform: rotateX(-12deg) rotateY(360deg); }
+}
+
+/* Reduced motion: stop on a composed pose with a Projects face toward you. */
+@media (prefers-reduced-motion: reduce) {
+  .dodeca__solid {
+    animation: none;
+    transform: rotateX(-12deg); /* rest with a Projects cap facing the viewer */
+  }
+}
+
+/* Tuck it away on narrow screens so it never crowds the name. */
+@media (max-width: 600px) {
+  .dodeca {
+    --face: clamp(78px, 20vw, 104px);
+  }
+}
