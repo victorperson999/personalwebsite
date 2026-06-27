@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Logo from '../components/Logo'
 import dataphoto from '../assets/dataintense.webp'
+import vicphoto from '../assets/victor.webp';
 import './About.css'
 
 /**
@@ -11,7 +12,9 @@ import './About.css'
 type Photo = { src: string; alt: string }
 
 const IMAGES: Photo[] = [
-  { src: dataphoto, alt: 'Victor Jiang' },
+  {src: vicphoto, alt: 'Victor jiang'},
+  { src: dataphoto, alt: 'dev book' },
+  
   // Add more here, e.g. { src: anotherImg, alt: '...' },
 ]
 
