@@ -2,6 +2,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "personal-website",
   "compatibility_date": "2025-11-01",
+  // Run the production build before deploying so ./dist exists. This makes
+  // `wrangler deploy` self-contained — used by both local `npm run deploy` and
+  // Cloudflare Workers Builds (whose deploy command is `npx wrangler deploy`).
+  "build": {
+    "command": "npm run build"
+  },
   "assets": {
     "directory": "./dist",
     "not_found_handling": "single-page-application"

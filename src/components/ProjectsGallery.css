@@ -1,0 +1,167 @@
+/* "The Board" — projects grid. All projects visible at once; cards auto-fit and
+   keep equal heights so tag rows line up. Brass left-edge + piece glyph carry
+   the chess motif without any 3D (the home hero already owns that). */
+.pgrid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 64rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* exactly two per row */
+  gap: clamp(1rem, 2.5vw, 1.5rem);
+}
+/* Stack to a single column on narrow screens so cards don't get cramped. */
+@media (max-width: 640px) {
+  .pgrid {
+    grid-template-columns: 1fr;
+  }
+}
+.pgrid__cell {
+  display: flex; /* lets the card stretch to the row height */
+}
+
+.pgrid__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  width: 100%;
+  padding: clamp(1.25rem, 2.5vw, 1.75rem);
+  border: 1px solid rgba(236, 230, 216, 0.1);
+  border-left: 2px solid rgba(201, 162, 39, 0.3);
+  border-radius: 14px;
+  background: linear-gradient(155deg, rgba(27, 34, 48, 0.85), rgba(13, 18, 25, 0.85));
+}
+
+/* GitHub link — sits in the card's top-right corner. */
+.pgrid__github {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.4rem);
+  right: clamp(1rem, 2vw, 1.4rem);
+  display: inline-flex;
+  color: var(--muted);
+  transition:
+    color 200ms ease,
+    transform 200ms ease;
+}
+.pgrid__github:hover,
+.pgrid__github:focus-visible {
+  color: var(--brass);
+  transform: translateY(-1px);
+}
+.pgrid__github:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.pgrid__piece {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1;
+  color: var(--brass);
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
+}
+.pgrid__piece-name {
+  margin-top: -0.25rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(201, 162, 39, 0.8);
+}
+.pgrid__title {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+}
+.pgrid__blurb {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(236, 230, 216, 0.78);
+}
+/* Image slot — real <img> or a placeholder box, between blurb and tags. */
+.pgrid__media {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 0.9rem 0 0;
+  border-radius: 8px;
+  overflow: hidden; /* clip the zoom so it stays inside the card */
+}
+.pgrid__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top; /* crop the bottom of the image off */
+  display: block;
+  transition: transform 400ms ease;
+}
+.pgrid__media--photo:hover .pgrid__img,
+.pgrid__media--photo:focus-within .pgrid__img {
+  transform: scale(1.08);
+}
+.pgrid__media--placeholder {
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(236, 230, 216, 0.2);
+  background: rgba(236, 230, 216, 0.03);
+}
+.pgrid__media--placeholder span {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pgrid__tags {
+  list-style: none;
+  margin: auto 0 0; /* push tags to the bottom so cards align */
+  padding: 0.9rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.pgrid__tags li {
+  padding: 0.2rem 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  border: 1px solid rgba(236, 230, 216, 0.16);
+  border-radius: 3px;
+}
+
+/* Live-demo (or other) link, pinned at the bottom of the card. */
+.pgrid__link {
+  align-self: flex-start;
+  margin-top: 0.85rem;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--brass);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+.pgrid__link:hover,
+.pgrid__link:focus-visible {
+  text-decoration: underline;
+}
+.pgrid__link:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pgrid__github,
+  .pgrid__img {
+    transition: none;
+  }
+  .pgrid__media--photo:hover .pgrid__img,
+  .pgrid__media--photo:focus-within .pgrid__img {
+    transform: none;
+  }
+}

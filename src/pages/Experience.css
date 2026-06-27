@@ -200,6 +200,37 @@
   font-size: 0.95rem;
   line-height: 1.55;
   color: rgba(236, 230, 216, 0.78);
+  white-space: pre-line; /* honor \n in blurbs as line breaks, still wrap */
+}
+.exp__card-note {
+  margin: 0.6rem 0 0;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(236, 230, 216, 0.78);
+}
+.exp__card-note strong {
+  font-weight: 600;
+  color: var(--brass);
+}
+.exp__card-links {
+  list-style: none;
+  margin: 0.6rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+.exp__card-links a {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 200ms ease;
+}
+.exp__card-links a:hover,
+.exp__card-links a:focus-visible {
+  color: var(--brass);
+  text-decoration: underline;
 }
 
 /* ---- Mobile: board pinned at the top, cards scroll beneath ---- */

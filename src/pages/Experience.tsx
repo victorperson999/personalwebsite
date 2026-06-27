@@ -10,47 +10,64 @@ type Entry = {
   org: string
   period: string
   blurb: string
+  note?: string
+  links?: string[]
 }
 
 // The knight rests at a8, then makes 4 valid L-shaped hops onto these squares as
 // you scroll (a8→b6→c4→e3→g2). Fill in the placeholders below.
-const HOME = { col: 1, row: 8 }
+const HOME = { col: 2, row: 8 }
 const ENTRIES: Entry[] = [
   {
-    square: 'b6',
-    col: 2,
-    row: 6,
-    role: 'Role title',
-    org: 'Company',
-    period: '2024 — Present',
-    blurb: 'Short description of what you did here — replace this placeholder.',
-  },
-  {
-    square: 'c4',
+    square: 'c6',
     col: 3,
+    row: 6,
+    role: 'Software Engineering Intern',
+    org: 'TBA',
+    period: 'Jul 2026 — Present',
+    blurb: 'TBA',
+  },
+  {
+    square: 'b4',
+    col: 2,
     row: 4,
-    role: 'Role title',
-    org: 'Company',
-    period: '2022 — 2024',
-    blurb: 'Short description of what you did here — replace this placeholder.',
+    role: 'Local Freelance Website developer',
+    org: 'Self-Employed',
+    period: 'May 2026 - Present',
+    blurb: 'Helped local users develop portfolio, personal, and professional websites:',
+    links: [
+      'https://topgradestutoring.ca/',
+      'https://danielaxentii.com/',
+      'https://valentinbujor.com/',
+    ],
   },
   {
-    square: 'e3',
-    col: 5,
+    square: 'd3',
+    col: 4,
     row: 3,
-    role: 'Role title',
-    org: 'Company',
-    period: '2021 — 2022',
-    blurb: 'Short description of what you did here — replace this placeholder.',
+    role: 'Lifeguard and Swim Instructor',
+    org: 'Bradford Leisure Centre - Town  of Bradford West Gwillimbury',
+    period: 'Jul 2022 — Jul 2023 (unofficial)',
+    blurb: 'Responsible for the well being of patrons in the pool facilities, instruction of swimming techniques and water safety rules.',
+    note: 'saved a drowning patient upon first week of employment, earned the black whistle.',
   },
   {
-    square: 'g2',
-    col: 7,
+    square: 'f2',
+    col: 6,
     row: 2,
-    role: 'Role title',
-    org: 'Company',
-    period: '2020 — 2021',
-    blurb: 'Short description of what you did here — replace this placeholder.',
+    role: 'Produce Stocker',
+    org: 'No Frills - George Weston Limited',
+    period: 'Sep 2021 — Jun 2022',
+    blurb: 'Responsible for keeping fresh produce stocked at No Frills grocery store, assisting customers, and being a team member',
+  },
+  {
+    square: 'h1',
+    col: 8,
+    row: 1,
+    role: 'Crew Member',
+    org: 'Mucho Burrito - Fresh Mexican Grill',
+    period: 'Jun 2020 — May 2021',
+    blurb: 'My first part time job - I handled customer service, food preparation, and store logistics',
   },
 ]
 
@@ -179,6 +196,22 @@ export default function Experience() {
                   {e.org} · {e.period}
                 </p>
                 <p className="exp__card-blurb">{e.blurb}</p>
+                {e.note && (
+                  <p className="exp__card-note">
+                    <strong>Notable achievement:</strong> {e.note}
+                  </p>
+                )}
+                {e.links && e.links.length > 0 && (
+                  <ul className="exp__card-links">
+                    {e.links.map((url) => (
+                      <li key={url}>
+                        <a href={url} target="_blank" rel="noopener noreferrer">
+                          {url.replace(/^https?:\/\//, '').replace(/\/$/, '')}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </article>
             </li>
           ))}
