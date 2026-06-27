@@ -68,18 +68,18 @@ function AimlIcon() {
  */
 type Panel =
   | { kind: 'nav'; label: string }
-  | { kind: 'skill'; label: string; Icon: () => ReactElement }
+  | { kind: 'skill'; label: string; move: string; Icon: () => ReactElement }
 
 // "Experience" sits on the two opposite faces (panels 1 and 4 → 0° and 180°),
 // so the click target comes around every half-turn. The other four faces carry
 // a tech name above its logo; the logo-less word is the cue. Edit skills freely.
 const PANELS: Panel[] = [
   { kind: 'nav', label: 'Experience' },
-  { kind: 'skill', label: 'React', Icon: ReactIcon },
-  { kind: 'skill', label: 'TypeScript', Icon: TypeScriptIcon },
+  { kind: 'skill', label: 'React', move: 'Nf3', Icon: ReactIcon },
+  { kind: 'skill', label: 'TypeScript', move: 'Bc4', Icon: TypeScriptIcon },
   { kind: 'nav', label: 'Experience' },
-  { kind: 'skill', label: 'AI/ML', Icon: AimlIcon },
-  { kind: 'skill', label: 'Python', Icon: PythonIcon },
+  { kind: 'skill', label: 'AI/ML', move: 'Qd2', Icon: AimlIcon },
+  { kind: 'skill', label: 'Python', move: 'Bf4', Icon: PythonIcon },
 ]
 
 export default function ExperiencePrism() {
@@ -96,6 +96,7 @@ export default function ExperiencePrism() {
               <span className="prism__label is-primary">{panel.label}</span>
             ) : (
               <>
+                <span className="prism__move">{panel.move}</span>
                 <span className="prism__label">{panel.label}</span>
                 <panel.Icon />
               </>

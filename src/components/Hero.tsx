@@ -11,6 +11,7 @@ import ProjectsDodeca from './ProjectsDodeca'
 import ExperiencePrism from './ExperiencePrism'
 import AboutCard from './AboutCard'
 import CornerSlider from './CornerSlider'
+import Logo from './Logo'
 import './Hero.css'
 
 /**
@@ -114,6 +115,7 @@ export default function Hero() {
           <h1>Victor Jiang</h1>
         </div>
         <CornerSlider value={t} onChange={setT} onDraggingChange={setDragging} />
+        <Logo className="hero__logo" />
       </div>
     </section>
   )

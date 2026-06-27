@@ -1,4 +1,4 @@
-import { Link } from '../router'
+import Logo from '../components/Logo'
 import './ProjectsPage.css'
 
 /**
@@ -8,10 +8,8 @@ import './ProjectsPage.css'
 export default function ProjectsPage() {
   return (
     <main className="projects-page">
+      <Logo className="page-logo" />
       <header className="projects-page__head">
-        <Link to="/" className="projects-page__back">
-          ← Victor Jiang
-        </Link>
         <span className="projects-page__coord">e4</span>
         <h1 className="projects-page__title">Projects</h1>
         <p className="projects-page__note">
