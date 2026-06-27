@@ -68,7 +68,8 @@
   gap: calc(var(--w) * 0.022);
   padding: 0.85rem 0.8rem;
 }
-.contact__back a {
+.contact__back a,
+.contact__back .contact__item {
   display: flex;
   align-items: center;
   gap: 0.5em;
@@ -80,7 +81,8 @@
   border-bottom: 1px solid transparent;
 }
 /* Let the long URLs wrap inside the card instead of overflowing. */
-.contact__back a > span {
+.contact__back a > span,
+.contact__back .contact__item > span {
   min-width: 0;
   overflow-wrap: anywhere;
 }
