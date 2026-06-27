@@ -1,8 +1,21 @@
 :root {
   color-scheme: dark;
-  --bg: #0b0d12;
-  --fg: #e8eaed;
-  --muted: #9aa0a6;
+
+  /* Chess palette */
+  --ink: #0e1116;
+  --slate: #1a2029;
+  --ivory: #ece6d8;
+  --brass: #c9a227;
+  --oxide: #3e6f63;
+
+  /* Semantic aliases */
+  --bg: var(--ink);
+  --fg: var(--ivory);
+  --muted: rgba(236, 230, 216, 0.55);
+
+  --mono: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  --display: "Space Grotesk Variable", "Space Grotesk", system-ui, -apple-system,
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -19,32 +32,14 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif;
+  font-family: var(--display);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
+/* Vertical stack so more sections can be added below the hero. */
 .page {
   min-height: 100%;
-  display: grid;
-  place-items: center;
-  padding: 2rem;
-}
-
-.hero {
-  text-align: center;
-}
-
-h1 {
-  margin: 0;
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-.tagline {
-  margin: 0.75rem 0 0;
-  color: var(--muted);
-  font-size: clamp(1rem, 3vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
 }
