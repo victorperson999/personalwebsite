@@ -1,9 +1,11 @@
 .projects-page {
   min-height: 100vh;
   min-height: 100svh;
-  display: grid;
-  place-items: center;
-  padding: clamp(2rem, 6vw, 5rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 6vh, 4rem);
+  padding: clamp(2rem, 6vw, 5rem) clamp(1rem, 4vw, 3rem) 12vh;
   background:
     radial-gradient(120% 80% at 50% -10%, rgba(62, 111, 99, 0.16), transparent 60%),
     var(--ink);
