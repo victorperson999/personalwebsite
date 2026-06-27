@@ -1,17 +1,24 @@
 import {
   useRef,
+  useState,
   type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from 'react'
 import { useReducedMotion } from '../hooks'
+import { carouselCenter, type Slot } from '../carousel'
 import ContactFlip from './ContactFlip'
+import ProjectsDodeca from './ProjectsDodeca'
+import ExperiencePrism from './ExperiencePrism'
+import AboutCard from './AboutCard'
+import CornerSlider from './CornerSlider'
 import './Hero.css'
 
 /**
- * Home hero — a dark, chess-themed parallax field. Piece glyphs sit at varying
- * depths around the edges and drift by a normalized pointer offset scaled per
- * layer (`--shift`), so the centered name reads as floating in front. Derived
- * from the ParallaxField experiment.
+ * Home hero — a dark, chess-themed parallax field. Piece glyphs drift by a
+ * normalized pointer offset scaled per layer (`--shift`). Four objects sit in
+ * the four corners; the slider under the name (value `t`) rotates them around
+ * the perimeter — each object is placed in a `.hero__slot` whose position Hero
+ * computes from `t`, while the object keeps its own spin/tilt transform.
  */
 type Piece = { glyph: string; top: string; left: string; shift: string; size: string }
 
@@ -31,6 +38,11 @@ export default function Hero() {
   const ref = useRef<HTMLElement>(null)
   const frame = useRef(0)
   const reduced = useReducedMotion()
+
+  // Carousel state: t ∈ [0,3] (slider), and whether it's mid-drag (to disable
+  // the slot transition so objects track the handle in real time).
+  const [t, setT] = useState(0)
+  const [dragging, setDragging] = useState(false)
 
   function onMove(e: ReactPointerEvent<HTMLElement>) {
     if (reduced) return
@@ -55,13 +67,14 @@ export default function Hero() {
     el.style.setProperty('--py', '0')
   }
 
+  // Position (% of hero) for an object given its home corner and the slider.
+  function slotStyle(home: Slot): CSSProperties {
+    const c = carouselCenter(home, t)
+    return { left: `${c.x}%`, top: `${c.y}%` }
+  }
+
   return (
-    <section
-      ref={ref}
-      className="hero"
-      onPointerMove={onMove}
-      onPointerLeave={reset}
-    >
+    <section ref={ref} className="hero" onPointerMove={onMove} onPointerLeave={reset}>
       {PIECES.map((p, i) => (
         <span
           key={`${p.glyph}-${i}`}
@@ -80,13 +93,28 @@ export default function Hero() {
         </span>
       ))}
 
-      <div className="hero__name" style={{ '--shift': '28px' } as CSSProperties}>
-        <span className="hero__coord">c4</span>
-        <h1>Victor Jiang</h1>
-        <p className="hero__tagline">Software engineer</p>
+      {/* Four corner objects — home slots: About=TL(0), Prism=TR(1),
+          Contact=BR(2), Dodeca=BL(3). */}
+      <div className="hero__slot" data-dragging={dragging} style={slotStyle(0)}>
+        <AboutCard />
+      </div>
+      <div className="hero__slot" data-dragging={dragging} style={slotStyle(1)}>
+        <ExperiencePrism />
+      </div>
+      <div className="hero__slot" data-dragging={dragging} style={slotStyle(2)}>
+        <ContactFlip />
+      </div>
+      <div className="hero__slot" data-dragging={dragging} style={slotStyle(3)}>
+        <ProjectsDodeca />
       </div>
 
-      <ContactFlip />
+      <div className="hero__center">
+        <div className="hero__name" style={{ '--shift': '28px' } as CSSProperties}>
+          <span className="hero__coord">c4</span>
+          <h1>Victor Jiang</h1>
+        </div>
+        <CornerSlider value={t} onChange={setT} onDraggingChange={setDragging} />
+      </div>
     </section>
   )
 }

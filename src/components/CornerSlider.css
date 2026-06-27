@@ -1,0 +1,73 @@
+/* Carousel control: a track line with ‹ › arrowheads, 4 dots, a square handle. */
+.cslider {
+  position: relative;
+  width: min(230px, 56vw);
+  height: 1.75rem;
+  margin-top: 1.6rem;
+  cursor: pointer;
+  touch-action: none; /* don't scroll the page while dragging */
+}
+.cslider:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 8px;
+  border-radius: 4px;
+}
+
+.cslider__line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: rgba(236, 230, 216, 0.22);
+  pointer-events: none;
+}
+
+.cslider__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.05rem;
+  line-height: 1;
+  color: rgba(236, 230, 216, 0.45);
+  pointer-events: none;
+}
+.cslider__arrow--left {
+  right: calc(100% + 0.5rem);
+}
+.cslider__arrow--right {
+  left: calc(100% + 0.5rem);
+}
+
+.cslider__dot {
+  position: absolute;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(236, 230, 216, 0.3);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Sleek brass diamond (a square turned 45°) with a faceted gradient + soft glow.
+   Kept on-palette — a red handle would clash with the brass/oxide theme. */
+.cslider__handle {
+  position: absolute;
+  top: 50%;
+  width: 11px;
+  height: 11px;
+  background: linear-gradient(135deg, #e3bd4a, #b08d22);
+  box-shadow: 0 0 7px rgba(201, 162, 39, 0.45);
+  transform: translate(-50%, -50%) rotate(45deg);
+  pointer-events: none;
+}
+
+/* Carousel is a desktop affordance — hide on small screens (two of the four
+   objects are hidden there anyway). */
+@media (max-width: 520px) {
+  .cslider {
+    display: none;
+  }
+}
