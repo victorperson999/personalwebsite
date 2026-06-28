@@ -48,8 +48,8 @@ const ENTRIES: Entry[] = [
     role: 'Lifeguard and Swim Instructor',
     org: 'Bradford Leisure Centre - Town  of Bradford West Gwillimbury',
     period: 'Jul 2022 — Jul 2023 (unofficial)',
-    blurb: 'Responsible for the well being of patrons in the pool facilities, instruction of swimming techniques and water safety rules.',
-    note: 'saved a drowning patient upon first week of employment, earned the black whistle.',
+    blurb: 'Part of the Lifeguard Pool team, participated with team memebrs for the responsibility of patrons in the pool facilities, instruction of swimming techniques and water safety rules.',
+    note: 'saved a drowning patron upon first week of employment, earned the black whistle.',
   },
   {
     square: 'f2',
