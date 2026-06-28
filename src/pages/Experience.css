@@ -137,6 +137,12 @@
   border-color: var(--brass);
   box-shadow: 0 0 9px rgba(201, 162, 39, 0.45);
 }
+/* The circle under the cursor during a drag — signals a valid drop target. */
+.exp__marker.is-target {
+  border-color: var(--brass);
+  box-shadow: 0 0 14px rgba(201, 162, 39, 0.65);
+  transform: translate(-50%, -50%) scale(1.18);
+}
 .exp__knight {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -144,11 +150,18 @@
   line-height: 1;
   color: var(--brass);
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
-  pointer-events: none;
+  pointer-events: auto;
+  cursor: grab;
+  touch-action: none; /* dragging the knight shouldn't scroll the page */
   z-index: 2;
   transition:
     left 600ms cubic-bezier(0.34, 1.35, 0.5, 1),
     top 600ms cubic-bezier(0.34, 1.35, 0.5, 1);
+}
+.exp__knight.is-dragging {
+  cursor: grabbing;
+  z-index: 4; /* ride above the markers while dragging */
+  transition: none; /* track the pointer 1:1, no spring lag */
 }
 
 /* ---- Entries: full cards, generous spacing so the previous ones stay
