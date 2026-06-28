@@ -90,13 +90,13 @@ export default function About() {
         {/* Right: bio text (no card — just text) */}
         <section className="about-bio">
           <p>
-            Hey! Welcome to my bio
+            Hey! Welcome to my bio.
           </p>
           <p>
             I was born in Brooklyn, New York and immigrated to Canada at a young age. Currenly residing in the Greater Toronto Area.
           </p>
           <p>
-            I'm currently enrolled at the University of Toronto Studying Computer Science, Statistics, and Math.
+            I'm currently enrolled at the University of Toronto studying Computer Science, Statistics, and Math.
           </p>
           <p>
             I am always interested in learning and trying new things, and currently interested in building products the better the lives of others.
