@@ -63,11 +63,3 @@
   transform: translate(-50%, -50%) rotate(45deg);
   pointer-events: none;
 }
-
-/* Carousel is a desktop affordance — hide on small screens (two of the four
-   objects are hidden there anyway). */
-@media (max-width: 520px) {
-  .cslider {
-    display: none;
-  }
-}

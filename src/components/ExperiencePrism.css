@@ -175,10 +175,3 @@
     transform: rotateX(-24deg) rotateY(-16deg);
   }
 }
-
-/* Keep the hero uncrowded on small screens. */
-@media (max-width: 520px) {
-  .prism {
-    display: none;
-  }
-}
