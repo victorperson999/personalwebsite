@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import Logo from '../components/Logo'
 import dataphoto from '../assets/dataintense.webp'
 import vicphoto from '../assets/victor.webp';
+import csphoto from '../assets/counterstrike.webp';
+import chessphoto from '../assets/chess.webp';
+import sysphoto from '../assets/mysql.webp';
 import './About.css'
 
 /**
@@ -13,6 +16,9 @@ type Photo = { src: string; alt: string }
 
 const IMAGES: Photo[] = [
   {src: vicphoto, alt: 'Victor jiang'},
+  {src: chessphoto, alt: 'Lichess stats'},
+  {src: sysphoto, alt: 'building systems'},
+  {src: csphoto, alt: 'cs photo in game'},
   { src: dataphoto, alt: 'dev book' },
   
   // Add more here, e.g. { src: anotherImg, alt: '...' },
@@ -98,7 +104,7 @@ export default function About() {
           <p>
             Some hobbies of mine are playing chess (kind of obvious at this point), building applications that interest me, helping others, playing Counter-Strike, and reading. If you've made it this far, feel free to contact me!
           </p>
-          <p>(I'm adding more images later)</p>
+          
 
         </section>
       </div>
