@@ -52,6 +52,9 @@ Single-page **Vite + React 18 + TypeScript** static site. No router, backend, or
 
 ## Changelog
 
+### 2026-06-28 — No-JavaScript fallback
+- **`index.html`** — addressed the site rendering nothing when JS is disabled, blocked, or fails to load (the SPA ships an empty `#root` that only React fills). Added (1) an inline critical `<style>` in `<head>` that locks in the dark background (`#0e1116`/`#ece6d8`) with no JS and before React mounts, avoiding a white flash; (2) a self-contained `<noscript>` fallback in `<body>` — its own scoped `<style>` (chess palette, brass accents, responsive `clamp()` sizing, so it doesn't depend on the bundled CSS), `#root:empty { display:none }` to collapse the empty root, and inline essentials: name, "Software Engineer", a two-line bio, and working `<a>` contact links (Email/LinkedIn/GitHub + Discord handle). Deliberately links to none of the JS-only sub-routes (`/about`, `/projects`, `/experience`) since they serve the same shell and would also be blank. No effect on the JS-enabled site (`<noscript>` is inert when JS runs). Verified via `npm run build` (fallback present verbatim in `dist/index.html`) and a JS-disabled preview.
+
 ### 2026-06-26 — Project scaffold + Cloudflare deploy
 - **Scaffolded** the site with Vite + React + TypeScript (`package.json`, `index.html`, `vite.config.ts`, `tsconfig.json`, `.gitignore`, `src/main.tsx`, `src/App.tsx`, `src/index.css`, `src/vite-env.d.ts`). Minimal dark landing page with a "Victor Jiang" hero.
 - **Cloudflare deploy** — added `wrangler.jsonc` (static-assets Worker serving `dist/`, SPA fallback) and a `deploy` script; connected the repo to the existing `personal-website` Worker via Workers Builds so pushes to `main` auto-deploy. Domain `www.victorjiang.dev` live.

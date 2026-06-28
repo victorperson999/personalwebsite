@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -6,9 +7,111 @@
     <link rel="icon" type="image/svg+xml" href="/logo.svg" />
     <title>Victor Jiang</title>
     <meta name="description" content="Personal website of Victor Jiang." />
+    <style>
+      /* Critical fallback — applies with no JS, and before React mounts, so the
+         page is never a flash of white. */
+      html {
+        background: #0e1116;
+        color: #ece6d8;
+      }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Shown only when JavaScript is disabled, blocked, or fails to load. -->
+    <noscript>
+      <style>
+        /* An empty #root would otherwise take full height and push this
+           fallback*/
+        #root:empty {
+          display: none;
+        }
+        .noscript-fallback {
+          box-sizing: border-box;
+          min-height: 100vh;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 1.25rem;
+          padding: 2.5rem clamp(1.5rem, 6vw, 5rem);
+          font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+            Arial, sans-serif;
+          line-height: 1.6;
+        }
+        .noscript-fallback__coord {
+          font-family: ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
+          font-size: 0.8rem;
+          letter-spacing: 0.15em;
+          text-transform: uppercase;
+          color: rgba(236, 230, 216, 0.55);
+        }
+        .noscript-fallback h1 {
+          margin: 0;
+          font-size: clamp(2.5rem, 8vw, 4.5rem);
+          font-weight: 700;
+          letter-spacing: -0.02em;
+        }
+        .noscript-fallback__title {
+          margin: 0;
+          color: #c9a227;
+          font-size: 1.1rem;
+          letter-spacing: 0.02em;
+        }
+        .noscript-fallback p {
+          margin: 0;
+          max-width: 52ch;
+          color: rgba(236, 230, 216, 0.78);
+        }
+        .noscript-fallback__contacts {
+          list-style: none;
+          margin: 0.5rem 0 0;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.4rem 1.5rem;
+        }
+        .noscript-fallback__contacts a {
+          color: #ece6d8;
+          text-decoration: none;
+          border-bottom: 1px solid rgba(201, 162, 39, 0.5);
+          padding-bottom: 2px;
+        }
+        .noscript-fallback__contacts a:hover {
+          color: #c9a227;
+        }
+        .noscript-fallback__note {
+          margin-top: 1rem;
+          font-size: 0.9rem;
+          color: rgba(236, 230, 216, 0.5);
+        }
+      </style>
+      <main class="noscript-fallback">
+        <span class="noscript-fallback__coord">c4</span>
+        <h1>Victor Jiang</h1>
+        <p class="noscript-fallback__title">Software Engineer</p>
+        <p>
+          Computer Science, Statistics &amp; Math student at the University of
+          Toronto, based in the Greater Toronto Area. Interested in chess and in
+          building products that make people's lives better.
+        </p>
+        <ul class="noscript-fallback__contacts">
+          <li><a href="mailto:victorjchess9@gmail.com">Email</a></li>
+          <li>
+            <a href="https://www.linkedin.com/in/victor-jiang-722289280/"
+              >LinkedIn</a
+            >
+          </li>
+          <li><a href="https://github.com/victorperson999">GitHub</a></li>
+          <li>Discord: victorperson999</li>
+        </ul>
+        <p class="noscript-fallback__note">
+          This is the no-JavaScript version of the site. The full interactive
+          version needs JavaScript enabled — This fallback is a summary of myself.
+        </p>
+      </main>
+    </noscript>
   </body>
 </html>
