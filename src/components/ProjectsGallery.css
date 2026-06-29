@@ -1,6 +1,6 @@
 /* "The Board" — projects grid. All projects visible at once; cards auto-fit and
-   keep equal heights so tag rows line up. Brass left-edge + piece glyph carry
-   the chess motif without any 3D (the home hero already owns that). */
+   keep equal heights so tag rows line up. The piece glyph carries the chess
+   motif without any 3D (the home hero already owns that). */
 .pgrid {
   list-style: none;
   margin: 0;
@@ -30,7 +30,6 @@
   width: 100%;
   padding: clamp(1.25rem, 2.5vw, 1.75rem);
   border: 1px solid rgba(236, 230, 216, 0.1);
-  border-left: 2px solid rgba(201, 162, 39, 0.3);
   border-radius: 14px;
   background: linear-gradient(155deg, rgba(27, 34, 48, 0.85), rgba(13, 18, 25, 0.85));
 }
