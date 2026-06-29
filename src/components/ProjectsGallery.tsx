@@ -32,7 +32,7 @@ const PROJECTS: Project[] = [
     blurb:
       'Full-stack web app that turns "where should I go?" into an AI-assisted, geographically optimized day-by-day trip plan.',
     image: mapsImg,
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Redis', 'Gemini AI'],
+    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Redis', 'Gemini AI', 'Algorithms'],
     // TODO: replace with the real repo URL
     github: 'https://github.com/victorperson999/Destination-Itinerary-Generator',
   },
