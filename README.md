@@ -1,6 +1,6 @@
 # personalwebsite
 
-Personal website for [www.victorjiang.dev](https://www.victorjiang.dev).
+Personal website for Victor Jiang @ [www.victorjiang.dev](https://www.victorjiang.dev).
 
 ## Stack
 
