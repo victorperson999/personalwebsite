@@ -26,6 +26,16 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
+    title: 'Vestibule',
+    piece: '♚',
+    pieceName: '',
+    blurb:
+      'A local, kernel-isolated code-execution sandbox for AI agents, exposed as an MCP server — run untrusted agent-generated code in a sealed chamber on your own machine: no cloud (E2B, AWS), no fees, nothing sent to a third party service.',
+    tags: ['Python', 'MCP', 'AI Agents', 'Sandboxing', 'Linux Namespaces', 'Security'],
+    // TODO: replace with the real repo URL
+    github: 'https://github.com/victorperson999/Vestibule',
+  },
+  {
     title: 'AI Destination Itinerary Generator',
     piece: '♛',
     pieceName: '',
