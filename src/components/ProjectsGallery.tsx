@@ -3,6 +3,7 @@ import paintImg from '../assets/painting.webp';
 import simulImg from '../assets/simulation.webp';
 import plusImg from '../assets/paint++.webp';
 import shellImg from '../assets/shell.webp';
+import vestibuleImg from '../assets/vestibule.webp'
 import './ProjectsGallery.css'
 
 /**
@@ -26,13 +27,13 @@ type Project = {
 
 const PROJECTS: Project[] = [
   {
-    title: 'Vestibule',
+    title: 'Vestibule (In process)',
     piece: '♚',
     pieceName: '',
     blurb:
       'A local, kernel-isolated code-execution sandbox for AI agents, exposed as an MCP server — run untrusted agent-generated code in a sealed chamber on your own machine: no cloud (E2B, AWS), no fees, nothing sent to a third party service.',
+    image: vestibuleImg,
     tags: ['Python', 'MCP', 'AI Agents', 'Sandboxing', 'Linux Namespaces', 'Security'],
-    // TODO: replace with the real repo URL
     github: 'https://github.com/victorperson999/Vestibule',
   },
   {
@@ -43,7 +44,6 @@ const PROJECTS: Project[] = [
       'Full-stack web app that turns "where should I go?" into an AI-assisted, geographically optimized day-by-day trip plan.',
     image: mapsImg,
     tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma', 'Redis', 'Gemini AI', 'Algorithms'],
-    // TODO: replace with the real repo URL
     github: 'https://github.com/victorperson999/Destination-Itinerary-Generator',
   },
   {
@@ -54,7 +54,6 @@ const PROJECTS: Project[] = [
       'Machine-learning classifier that predicts viewer responses to three famous paintings — a 322-feature Logistic Regression with a dependency-free, NumPy-only inference pipeline.',
     image: paintImg,
     tags: ['Machine Learning', 'Python', "Pandas", "Scikit-learn","Matplotlib"],
-    // TODO: replace with the real repo URL
     github: 'https://github.com/victorperson999/3-Paintings-Classifier'
   },
   {
@@ -76,7 +75,6 @@ const PROJECTS: Project[] = [
       'A modern, Clean-Architecture reimagining of Microsoft Paint — a Java desktop app for drawing and editing images, with Supabase-backed login that saves your past canvases.',
     image: plusImg,
     tags: ['Java', 'Supabase', 'Agile', 'SOLID', 'Clean Architecture'],
-    // TODO: replace with the real repo URL
     github: 'https://github.com/fcorbin567/paintplusplus'
   },
   {
@@ -86,7 +84,6 @@ const PROJECTS: Project[] = [
     blurb: 'A UNIX Shell written in C',
     image: shellImg,
     tags: ['C', 'UNIX','Algorithms', 'Systems programming'],
-    // TODO: replace with the real repo URL
     github: 'https://github.com/victorperson999/mysh'
   },
 ]
