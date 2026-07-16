@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "personal-website",
+  "name": "personalwebsite",
   "compatibility_date": "2025-11-01",
   // Run the production build before deploying so ./dist exists. This makes
   // `wrangler deploy` self-contained — used by both local `npm run deploy` and
