@@ -26,3 +26,5 @@ dist-ssr
 
 #local claude settings
 settings.local.json
+
+.claude/worktrees/
