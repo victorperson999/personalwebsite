@@ -27,10 +27,10 @@ const ENTRIES: Entry[] = [
     square: 'c6',
     col: 3,
     row: 6,
-    role: 'Software Engineering Intern',
-    org: 'TBA',
+    role: 'Software/Data Engineering Intern',
+    org: 'Homega Indonesia',
     period: 'Jul 2026 — Present',
-    blurb: 'TBA',
+    blurb: 'Building a verified, AI-assisted database/distribution platform of motorcycle repair/spare-parts shops nationwide, cross-checking multiple data sources to score which listings are real, live, and callable. Using Claude API embedded to classify Google Street View evidence to cross-check shop verification.',
   },
   {
     square: 'b4',

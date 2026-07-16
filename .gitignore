@@ -24,6 +24,7 @@ dist-ssr
 *.sln
 *.sw?
 
+#local claude settings
 settings.local.json
 
 .claude/worktrees/
