@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "3d-animations",
+  "owner": "lobbi-docs",
+  "repo": "claude",
+  "path": "plugins/react-animation-studio/skills/3d-animations",
+  "branch": "main",
+  "sha": "478db2c01cab1f0ee6c688bcbe571046e5bfd764",
+  "source": "manual"
+}
